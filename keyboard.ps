@@ -1,0 +1,70 @@
+%!PS-Adobe-3.0
+%%Orientation: Landscape
+%%LanguageLevel: 2
+
+<< /PageSize [792 612] /Orientation 0 >> setpagedevice
+
+/Times-Bold findfont 20 scalefont setfont
+1 setlinewidth
+
+/center {
+  gsave
+  dup stringwidth
+  pop 2 div neg 7 neg
+  rmoveto show
+  grestore
+} def
+
+/box {
+  gsave
+  currentpoint
+  newpath
+  moveto
+  2 copy 
+  2 div neg exch 2 div neg exch rmoveto
+  exch
+  dup 0 rlineto
+  exch 0 exch rlineto
+  neg 0 rlineto
+  closepath
+  stroke
+  grestore
+} def 
+
+/inch {
+  72 mul
+} def
+
+/key_gap { 5 } def
+/key_owidth { 8 inch 11 div } def
+/key_width { key_owidth key_gap sub } def
+/key_oheight { key_width 3 mul 2 div } def
+/key_height { key_oheight key_gap sub } def
+
+/step { key_owidth 0 rmoveto } def
+/halfstep { key_owidth 2 div 0 rmoveto } def
+/up { 0 key_oheight 2 div rmoveto } def
+/down { 0 key_oheight 2 div neg rmoveto } def
+/key { key_width key_height box center step } def
+/bigkey { up key_width key_oheight 2 mul key_gap sub box center step down } def
+/numbar { key_owidth 10 mul key_gap sub key_height 2 div box } def
+
+100 170 moveto
+currentpoint
+step
+currentpoint
+  step step step (A) key (O) key (E) key (U) key
+moveto up up up
+currentpoint
+  (S) bigkey (K) key (W) key (R) key
+  (*) bigkey (R) key (B) key (G) key (S) key (Z) key
+moveto up up currentpoint
+  step (T) key (P) key (H) key
+  step (F) key (P) key (L) key (T) key (D) key
+moveto up up
+step step step step halfstep numbar
+moveto
+4 inch 1.75 inch rmoveto
+8 inch 5.5 inch box
+
+showpage
