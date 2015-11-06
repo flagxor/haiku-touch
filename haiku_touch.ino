@@ -295,9 +295,8 @@ static uint8_t digits[] = {
   0x76,  // y
 };
 
-static uint8_t im[1024];
-
-static char message[] = "The quick brown fox jumps over the lazy dog.";
+static char message[64] = "boot";
+static int message_length = 4;
 
 static void calibrate() {
   int i, j;
@@ -321,24 +320,15 @@ static void calibrate() {
       }
     }
   }
-  Serial.println("ready");  
+  Serial.println("ready");
+  strcpy(message, "ready ");
+  message_length = strlen(message);
 }
 
 void setup() {
   setup_digit();
   setup_pixels();
   Serial.begin(9600);
-  int i, j;
-
-  for (i = 0; i < sizeof(im); i++) {
-    if (i % 6 == 5) {
-      im[i] = 0;
-    } else {
-      uint8_t ch = message[(i / 6) % sizeof(message)] - 32;
-      im[i] = letters[ch * 5 + (i % 6)];
-    }
-  }
-
   calibrate();
 }
 
@@ -372,6 +362,9 @@ void loop() {
                 str[pos++] = button_name[k];
               }
               str[pos] = 0;
+              strcpy(message, str);
+              strcat(message, " ");
+              message_length = strlen(message);
               Serial.println(str);
               if (strcmp(str, "#*") == 0) {
                 calibrate();
@@ -386,12 +379,22 @@ void loop() {
   }
 
   write_digit(digits[stroke_count]);
-  write_pixels(im + base);
+  uint8_t im[5];
+  for (i = 0; i < 5; i++) {
+    int pos = ((base + i) / 6) % message_length;
+    int pos1 = (base + i) % 6;
+    if (pos1 == 5) {
+      im[i] = 0;
+    } else {
+      im[i] = letters[(message[pos] - ' ') * 5 + pos1];
+    }
+  }
+  write_pixels(im);
   int t = millis();
-  if (t - last > 100) {
+  if (t - last > 70) {
     last = t;
     base++;
   }
-  if (base >= sizeof(im) - 5) base = 0;
+  if (base >= message_length * 6) base = 0;
 }
 
