@@ -5,10 +5,10 @@
   "description": "Arudino touch interface Forth Haiku",
   "version" : "1.0.0.0",
   "kiosk_enabled" : true,
-  "icons": { 
-    "16": "haiku_16.png", 
-    "48": "haiku_48.png", 
-    "128": "haiku_128.png" 
+  "icons": {
+    "16": "haiku_16.png",
+    "48": "haiku_48.png",
+    "128": "haiku_128.png"
   },
   "permissions": [
     "serial",
@@ -16,9 +16,9 @@
     "webview"
   ],
   "externally_connectable": {
-    "matches": ["*://forthsalon.appspot.com/*"],
+    "matches": ["*://forthsalon.appspot.com/*"]
   },
-  "app" : {
+  "app": {
     "background" : {
       "scripts" : ["background.js"],
       "persistent": true
