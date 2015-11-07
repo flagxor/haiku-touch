@@ -33,7 +33,10 @@ setInterval(function() {
       return;
     }
     for (var i = 0; i < ports.length; i++) {
-      if (ports[i].path.search('tty.usbserial') >= 0) {
+      var d = ports[i];
+      if ((d.productId === 24577 && d.vendorId === 1027) ||
+           d.path.search('ttyUSB') >= 0 ||
+           d.path.search('tty.usbserial') >= 0) {
         chrome.serial.connect(
             ports[i].path,
             {bitrate: 9600, persistent: true}, function(c) {

@@ -3,7 +3,7 @@
   "name" : "Forth Haiku Touch",
   "short_name" : "Haiku Touch",
   "description": "Arduino touch interface Forth Haiku",
-  "version" : "1.0.0.2",
+  "version" : "1.0.0.3",
   "kiosk_enabled" : true,
   "icons": {
     "16": "haiku_16.png",
