@@ -3,7 +3,8 @@
 
 enum Buttons {
   NUM=(1L<<0),
-  iS=(1L<<1), iT=(1L<<2), iK=(1L<<3), iP=(1L<<4), iW=(1L<<5), iH=(1L<<6), iR=(1L<<7),
+  iS=(1L<<1), iT=(1L<<2), iK=(1L<<3), iP=(1L<<4),
+  iW=(1L<<5), iH=(1L<<6), iR=(1L<<7),
   A=(1L<<8), O=(1L<<9), STAR=(1L<<10), E=(1L<<11), U=(1L<<12),
   fF=(1L<<13), fR=(1L<<14), fP=(1L<<15), fB=(1L<<16), fL=(1L<<17),
   fG=(1L<<18), fT=(1L<<19), fS=(1L<<20), fD=(1L<<21), fZ=(1L<<22),
@@ -53,7 +54,7 @@ enum Buttons {
   fX = fB | fG | fS,
   fSHUN = fG | fS,
   fKSHUN = STAR | fB | fG | fS,
-  
+
   COMMA = fR | fB | fG | fS,
   CORRECTION = STAR,
   PARAGRAPH = iP | fF,
@@ -101,7 +102,9 @@ void steno_to_string(long ch, char *out) {
   REPLACE(WHOLE, n7, "7");
   REPLACE(WHOLE, n8, "8");
   REPLACE(WHOLE, n9, "9");
-  
+
+  REPLACE(NUM, NUM, "#");
+
   REPLACE(INITIAL, iB, "B");
   REPLACE(INITIAL, iCH, "CH");
   REPLACE(INITIAL, iD, "D");
@@ -170,7 +173,7 @@ void steno_to_string(long ch, char *out) {
   out[pos] = '\0';
 }
 
-void steno_to_string_simple(long ch, char *out) {  
+void steno_to_string_simple(long ch, char *out) {
   int i, pos;
   pos = 0;
   for (i = 0; i < CAPTOUCH_BUTTONS; i++) {
