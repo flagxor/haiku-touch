@@ -17,7 +17,7 @@ void chord_calibrate(void) {
   stroke = 0;
   state = 0;
   for(i = 0; i < CAPTOUCH_BUTTONS; i++) {
-    tally[i] = 0;
+    tally[i] = 5;
     count[i] = 0;
   }
   for (j = 0; j < CALIBRATE_STEPS; j++) {
@@ -31,6 +31,16 @@ void chord_calibrate(void) {
   }
 }
 
+void chord_dump(void) {
+  for (int i = 0; i < CAPTOUCH_BUTTONS; i++) {
+    Serial.print(i);
+    Serial.print(":");
+    Serial.print(tally[i]);
+    Serial.print(" ");
+  }
+  Serial.println();
+}
+
 uint8_t chord_keys_down(void) {
   return keys_down;
 }
@@ -38,6 +48,7 @@ uint8_t chord_keys_down(void) {
 long chord_read(void) {
   uint8_t keys[CAPTOUCH_BUTTONS];
   int i;
+  long ret;
 
   captouch_read(keys);
   for (i = 0; i < CAPTOUCH_BUTTONS; i++) {
@@ -57,6 +68,8 @@ long chord_read(void) {
         if (val) {
           stroke |= (1L<<i);
           keys_down++;
+        } else {
+          keys_down--;
         }
       }
     }
@@ -64,6 +77,8 @@ long chord_read(void) {
   if (keys_down > 0) {
     return 0;
   } else {
-    return stroke;
+    ret = stroke;
+    stroke = 0;
+    return ret;
   }
 }

@@ -3,14 +3,7 @@
 
 #include "Arduino.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern void steno_to_string(long ch, char *out);
-
-#ifdef __cplusplus
-};
-#endif
+extern void steno_to_string_simple(long ch, char *out);
 
 #endif

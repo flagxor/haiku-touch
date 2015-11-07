@@ -5,7 +5,6 @@
 #include "steno.h"
 
 static char message[64] = "boot";
-static int message_length = 4;
 static int scroll = 0;
 static int last_tm = 0;
 
@@ -14,6 +13,7 @@ void setup() {
   digit_setup();
   pixels_setup();
   chord_calibrate();
+  strcpy(message, "ok");
 }
 
 void update(void) {
@@ -22,7 +22,7 @@ void update(void) {
     last_tm = tm;
     scroll++;
   }
-  if (scroll >= message_length * 6) {
+  if (scroll >= strlen(message) * 6) {
     scroll = 0;
   }
 }
@@ -33,9 +33,12 @@ void loop() {
     steno_to_string(ch, message);
     Serial.println(message);
     if (strcmp(message, "#*") == 0) {
+      delay(200);
       chord_calibrate();
-      strcpy(message, "ready");
+      strcpy(message, "ok");
       Serial.println(message);
+    } else if (strcmp(message, "*P") == 0) {
+      chord_dump();
     }
   }
   digit_set(chord_keys_down());

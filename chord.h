@@ -3,16 +3,9 @@
 
 #include "Arduino.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern void chord_calibrate(void);
 extern uint8_t chord_keys_down(void);
 extern long chord_read(void);
-
-#ifdef __cplusplus
-};
-#endif
+extern void chord_dump(void);
 
 #endif
