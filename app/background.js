@@ -16,6 +16,17 @@ function StringToBuffer(s) {
   return buf;
 }
 
+chrome.serial.onReceive.addListener(function(info) {
+  if (page !== null) {
+    page.postMessage({'data': BufferToString(info.data)});
+  }
+});
+
+chrome.serial.onReceiveError.addListener(function(info) {
+  chrome.serial.disconnect(info.connectionId, function() {});
+  serial = null;
+});
+
 setInterval(function() {
   chrome.serial.getDevices(function(ports) {
     if (serial !== null) {
@@ -23,21 +34,10 @@ setInterval(function() {
     }
     for (var i = 0; i < ports.length; i++) {
       if (ports[i].path.search('tty.usbserial') >= 0) {
-        console.log(ports[i].path);
         chrome.serial.connect(
             ports[i].path,
             {bitrate: 9600, persistent: true}, function(c) {
           serial = c;
-          chrome.serial.onReceive.addListener(function(info) {
-            if (page !== null) {
-              page.postMessage({'data': BufferToString(info.data)});
-              console.log(info.data.byteLength);
-            }
-          });
-          chrome.serial.onReceiveError.addListener(function() {
-            chrome.serial.disconnect(c.connectionId, function() {});
-            serial = null;
-          });
         });
       }
     }
