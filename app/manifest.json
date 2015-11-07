@@ -16,8 +16,7 @@
     "webview"
   ],
   "externally_connectable": {
-    "matches": ["*://forthsalon.appspot.com/*",
-                "*://localhost/*"]
+    "matches": ["*://forthsalon.appspot.com/*"],
   },
   "app" : {
     "background" : {
