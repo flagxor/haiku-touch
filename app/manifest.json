@@ -2,8 +2,8 @@
   "manifest_version" : 2,
   "name" : "Forth Haiku Touch",
   "short_name" : "Haiku Touch",
-  "description": "Arudino touch interface Forth Haiku",
-  "version" : "1.0.0.1",
+  "description": "Arduino touch interface Forth Haiku",
+  "version" : "1.0.0.2",
   "kiosk_enabled" : true,
   "icons": {
     "16": "haiku_16.png",
