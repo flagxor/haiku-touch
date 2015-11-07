@@ -1,8 +1,14 @@
 #include "captouch.h"
 
 static uint8_t buttons[CAPTOUCH_BUTTONS] = {
-  24, 26, 28, 30, 31, 32, 33, 34, 35, 36, 37,
-  38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 
+  // #
+  30,
+  // STKPWHR
+  41, 33, 40, 32, 43, 35, 42,
+  // AO*EU
+  24, 26, 45, 28, 31,
+  // FRPBLGTSDZ
+  34, 44, 37, 47, 36, 46, 39, 49, 38, 48,
 };
 
 void captouch_setup(void) {

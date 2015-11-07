@@ -2,36 +2,6 @@
 #include "captouch.h"
 
 static char button_name[] = "#STKPWHRAO*EUFRPBLGTSDZ";
-#if 0
-static char button_name[] = {
-  'A',
-  ' ',
-  'O',
-  ' ',
-  'E',
-  ' ',
-  '#',
-  'U',
-  'P',
-  'T',
-  'f',  // final
-  'H',
-  'l',  // final
-  'p',  // final
-  'd',  // final
-  't',  // final
-  'K',
-  'S',
-  'R',
-  'W',
-  'r',  // final
-  '*',
-  'g',  // final
-  'b',  // final
-  'z',  // final
-  's',  // final
-};
-#endif
 
 void steno_to_string(long ch, char *out) {
   int i;
@@ -42,6 +12,7 @@ void steno_to_string(long ch, char *out) {
     if (ch & 1) {
       out[pos++] = button_name[i];
     }
+    ch >>= 1;
   }
   out[pos] = '\0';
 }
