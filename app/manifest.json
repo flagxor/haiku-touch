@@ -16,7 +16,11 @@
     "webview"
   ],
   "externally_connectable": {
-    "matches": ["*://forthsalon.appspot.com/*"]
+    "matches": ["*://forthsalon.appspot.com/*",
+                "*://flagxor.github.io/svfig-talks/*",
+                "*://localhost/*",
+                "*://127.0.0.1/*",
+                "*://0.0.0.0/*"]
   },
   "app": {
     "background" : {
