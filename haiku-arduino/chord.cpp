@@ -66,9 +66,13 @@ long chord_read(void) {
           state &= ~(1L<<i);
         }
         if (val) {
+          Serial.print('~');
+          Serial.println(i);
           stroke |= (1L<<i);
           keys_down++;
         } else {
+          Serial.print('^');
+          Serial.println(i);
           keys_down--;
         }
       }
