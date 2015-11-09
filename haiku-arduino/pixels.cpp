@@ -141,17 +141,21 @@ void pixels_scroll(const char* message, int len, int scroll) {
 
   for (int i = 0; i < 5; i++) {
     int at = scroll + i;
-    int pos = (at/ 6) % (len + 1);
+    int pos = (at/ 6) % (len + 2);
     int pos1 = at % 6;
     if (pos1 == 5) {
       im[i] = 0;
     } else {
-      if (pos == len) {
+      if (pos == 0 || pos == len + 1) {
         im[i] = 0;
       } else {
-        im[i] = font[(message[pos] - ' ') * 5 + pos1];
+        im[i] = font[(message[pos - 1] - ' ') * 5 + pos1];
       }
     }
   }
   pixels_refresh(im);
+}
+
+int pixels_scroll_width(int len) {
+  return len * 6 + 6;
 }

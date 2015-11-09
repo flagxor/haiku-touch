@@ -6,5 +6,6 @@
 extern void pixels_setup(void);
 extern void pixels_refresh(const uint8_t* pix);
 extern void pixels_scroll(const char* message, int len, int scroll);
+extern int pixels_scroll_width(int len);
 
 #endif
