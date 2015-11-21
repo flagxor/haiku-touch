@@ -1,7 +1,7 @@
 'use strict';
 
 var serial = null;
-var page = null;
+var pages = [];
 
 function BufferToString(b) {
   return String.fromCharCode.apply(null, new Uint8Array(b));
@@ -17,8 +17,8 @@ function StringToBuffer(s) {
 }
 
 chrome.serial.onReceive.addListener(function(info) {
-  if (page !== null) {
-    page.postMessage({'data': BufferToString(info.data)});
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].postMessage({'data': BufferToString(info.data)});
   }
 });
 
@@ -48,7 +48,7 @@ setInterval(function() {
 }, 500);
 
 chrome.runtime.onConnectExternal.addListener(function(port) {
-  page = port;
+  pages.push(port);
   port.onMessage.addListener(function(m) {
     var data = StringToBuffer(m.data);
     if (serial !== null) {
@@ -56,7 +56,10 @@ chrome.runtime.onConnectExternal.addListener(function(port) {
     }
   });
   port.onDisconnect.addListener(function() {
-    page = null;
+    var i = pages.indexOf(port);
+    if (i >= 0) {
+      pages.splice(i, 1);
+    }
   });
 });
 
